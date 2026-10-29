@@ -1,4 +1,5 @@
 import math
+from datetime import datetime
 # 1
 # class Rectangle:
 #     def __init__(self, width, height):
@@ -96,3 +97,112 @@ import math
 # print(f"Úhel mezi v1 a v2: {v1.angle_to(v2):.2f}°")
 # -----------------------------------------------------------
 # 3
+class Item:
+    def __init__(self, name: str, price: float, quantity: int):
+        self.name = name
+        self.price = price
+        self.quantity = quantity
+
+    def total_val(self) -> float:
+        return self.price * self.quantity
+
+    def __repr__(self) -> str:
+        return 
+
+class Warehouse:
+    def __init__(self):
+        self.items: dict[str, Item] = {}
+        self.history: list[dict] = []
+
+    def _log_movement(self, action: str, name: str, quantity: int, status: str):
+        self.history.append(
+            {
+                "timestamp": datetime.now().strftime("%Y-%m-%d %H:%M:%S:"),
+                "action" : action,
+                "item_name" : name,
+                "quantity" : quantity,
+                "status" : status,
+            }
+        )
+
+    def find(self, name: str) -> Item | None:
+        return self.items.get(name)
+
+    def add(self, name: str, price: float, quantity: int):
+        if name in self.items:
+            self.items[name].quantity += quantity
+            self.items[name].price = price
+        else:
+            self.items[name] =  Item(name, price, quantity)
+
+        self._log_movement("IN", name, quantity, "SUCCES")
+
+    def remove(self, name: str, quantity: int):
+        item = self.find(name)
+        if item is None or item.quantity < quantity:
+            self._log_movement("OUT", name, quantity, "FAILTURE")
+            return False
+        else:
+            item.quantity -= quantity
+            self._log_movement("OUT", name, quantity, "SUCCES")
+            return True 
+
+    def total_value(self)  -> float:
+        return sum(item.total_val() for item in self.items.values())
+
+    def low_stock(self, limit: int):
+        for item in self.items :
+            if item.quantity < limit:
+                return [item.name]
+        return
+
+    def report(self) -> None:
+        print("\n" + "=" * 60)
+        print(f"{"CURRENT WREHOUSE INVENTORY":^60}")
+        print("=" * 60)
+        print(f"{"Item Name":<20} | {"Unit Price":>10} | {"Qty":>6} | {"Total Value":>10} |")
+        print("-" * 60)
+
+        for item in self.items.values():
+            print(f"{item.name:<20} | {item.price:>10} | {item.quantity:>6} | {item.total_val():>10.2f}")
+
+        print("-" * 60)
+        print(f"{"Total Warhouse Value":<41} {self.total_value():>10.2f}")
+
+    def item_history(self, name) -> None:
+        records = [ record for record in self.history if record["item_name"] == name ]
+        print(f"\n--- Movement History for '{name}' ---")
+        if not records:
+            print("No movement records found.")
+            return
+
+        for record in records:
+            print(
+                f"[{record['timestamp']}] Action: {record['action']:<3} | "
+                f"Qty: {record['quantity']:>4} | Status: {record['status']}"
+            )
+        print("-" * 60)
+
+
+        
+
+wh = Warehouse()
+
+wh.add("Laptop", 1200.0, 10)
+wh.add("Mouse", 25.0, 50)
+wh.add("Keyboard", 45.0, 30)
+wh.add("Laptop", 1200.0, 5)
+wh.report()
+wh.remove("Laptop", 3)
+wh.remove("Mouse", 45)
+wh.remove("Laptop", 20)
+wh.remove("Monitor", 10)
+wh.report()
+wh.item_history("Laptop")
+wh.item_history("Mouse")
+
+
+
+
+
+        
