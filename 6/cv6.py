@@ -46,57 +46,53 @@ import math
 # print(f"{max_rect.describe()} (obsah: {max_rect.area()})")
 # -----------------------------------------------------------
 # 2
-class Vector2D:
-    def __init__(self, x, y):
-        self.x = x
-        self.y = y
+# class Vector2D:
+#     def __init__(self, x, y):
+#         self.x = x
+#         self.y = y
 
-    def length(self) -> float:
-        """Vrátí délku (velikost) vektoru."""
-        return math.sqrt(self.x**2 + self.y**2)
+#     def length(self) -> float:
+#         return math.sqrt(self.x**2 + self.y**2)
 
-    def add(self, other: 'Vector2D') -> 'Vector2D':
-        """Vrátí nový vektor, který je součtem obou vektorů."""
-        return Vector2D(self.x + other.x, self.y + other.y)
+#     def add(self, other: 'Vector2D') -> 'Vector2D':
+#         return Vector2D(self.x + other.x, self.y + other.y)
 
-    def scale(self, k: float) -> 'Vector2D':
-        """Vrátí nový vektor k-krát delší (vynásobený skalárem)."""
-        return Vector2D(self.x * k, self.y * k)
+#     def scale(self, k: float) -> 'Vector2D':
+#         return Vector2D(self.x * k, self.y * k)
 
-    def dot(self, other: 'Vector2D') -> float:
-        """Vrátí skalární součin dvou vektorů."""
-        return self.x * other.x + self.y * other.y
+#     def dot(self, other: 'Vector2D') -> float:
+#         return self.x * other.x + self.y * other.y
 
-    def angle_to(self, other: 'Vector2D') -> float:
-        """Vrátí úhel mezi dvěma vektory ve stupních."""
-        len_self = self.length()
-        len_other = other.length()
+#     def angle_to(self, other: 'Vector2D') -> float:
+#         len_self = self.length()
+#         len_other = other.length()
         
-        if len_self == 0 or len_other == 0:
-            raise ValueError("Nulový vektor nemá definovaný úhel.")
+#         if len_self == 0 or len_other == 0:
+#             raise ValueError("Nulový vektor nemá definovaný úhel.")
         
         
-        cos_theta = self.dot(other) / (len_self * len_other)
+#         cos_theta = self.dot(other) / (len_self * len_other)
         
         
-        cos_theta = max(-1.0, min(1.0, cos_theta))
+#         cos_theta = max(-1.0, min(1.0, cos_theta))
         
-        angle_rad = math.acos(cos_theta)
-        return math.degrees(angle_rad)
+#         angle_rad = math.acos(cos_theta)
+#         return math.degrees(angle_rad)
 
-    def __repr__(self) -> str:
-        return f"Vector2D({self.x}, {self.y})"
-
-
+#     def __repr__(self) -> str:
+#         return f"Vector2D({self.x}, {self.y})"
 
 
-v1 = Vector2D(3, 4)
-v2 = Vector2D(0, 5)
 
-print(f"Vektor v1: {v1}, délka: {v1.length()}")
-print(f"Vektor v2: {v2}, délka: {v2.length()}")
-print(f"Součet v1 + v2: {v1.add(v2)}")
-print(f"Vektor v1 zvětšený 2.5krát: {v1.scale(2.5)}")
-print(f"Skalární součin v1 · v2: {v1.dot(v2)}")
-print(f"Úhel mezi v1 a v2: {v1.angle_to(v2):.2f}°")
-                 
+
+# v1 = Vector2D(3, 4)
+# v2 = Vector2D(0, 5)
+
+# print(f"Vektor v1: {v1}, délka: {v1.length()}")
+# print(f"Vektor v2: {v2}, délka: {v2.length()}")
+# print(f"Součet v1 + v2: {v1.add(v2)}")
+# print(f"Vektor v1 zvětšený 2.5krát: {v1.scale(2.5)}")
+# print(f"Skalární součin v1 · v2: {v1.dot(v2)}")
+# print(f"Úhel mezi v1 a v2: {v1.angle_to(v2):.2f}°")
+# -----------------------------------------------------------
+# 3
