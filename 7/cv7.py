@@ -1,5 +1,4 @@
 #1
-
 def text_statistic(path):
     with open(path, "r", encoding="utf-8") as file:
         num_of_lines = 0
